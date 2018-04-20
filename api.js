@@ -28,13 +28,13 @@ api.post('/login',function(req,res,next){
     connection.query(sql, function (err, rows, fields) {
         if (err) throw err
       
-        res.send("welcome!! "+ rows[0].user_name);
-        // res.status(200)
-        // .json({
-        //     statusCode: 200,
-        //     statusMsg: 'OK',
-        //     data: rows[0]
-        // });
+        // res.send("welcome!! "+ rows[0].user_name);
+        res.status(200)
+        .json({
+            statusCode: 200,
+            statusMsg: 'OK',
+            data: rows[0]
+        });
 
     });
 
