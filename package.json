@@ -1,0 +1,26 @@
+{
+  "name": "mynotes-app",
+  "version": "1.0.0",
+  "description": "simple note keeping app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amitdabade/mynotes-app.git"
+  },
+  "author": "Amit Dabade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amitdabade/mynotes-app/issues"
+  },
+  "homepage": "https://github.com/amitdabade/mynotes-app#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "engines": {
+    "node": "8.11.1"
+  }
+}
