@@ -26,7 +26,8 @@ api.post('/login',function(req,res,next){
     var sql = 'SELECT * FROM users WHERE user_email="'+req.body.email+'"';
     console.log(sql);
     connection.query(sql, function (err, rows, fields) {
-        if (err) throw err
+        console.log(rows.length);
+        // if (err) throw err
       
         // res.send("welcome!! "+ rows[0].user_name);
 
