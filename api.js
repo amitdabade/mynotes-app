@@ -23,7 +23,7 @@ api.post("/welcome", function(req, res){
 });
 
 api.post('/login',function(req,res,next){
-    connection.query('SELECT * FROM users WHERE user_email='+req.body.email, function (err, rows, fields) {
+    connection.query('SELECT * FROM users WHERE user_email=amit@amit.com', function (err, rows, fields) {
         if (err) throw err
       
         res.send("welcome!! "+ rows[0].user_name);
