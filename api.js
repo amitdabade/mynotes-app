@@ -16,7 +16,7 @@ api.get("/welcome", function(req, res){
     
 });
 
-router.post('/login',function(req,res,next){
+api.post('/login',function(req,res,next){
     connection.query('SELECT * FROM users WHERE user_email="'+req.body.email+'"', function (err, rows, fields) {
         if (err) throw err
       
