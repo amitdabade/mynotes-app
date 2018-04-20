@@ -29,12 +29,22 @@ api.post('/login',function(req,res,next){
         if (err) throw err
       
         // res.send("welcome!! "+ rows[0].user_name);
-        res.status(200)
-        .json({
-            statusCode: 200,
-            statusMsg: 'OK',
-            data: rows[0]
-        });
+
+        if(req.body.password==rows[0].user_password){
+            res.status(200)
+            .json({
+                statusCode: 200,
+                statusMsg: 'OK',
+                data: 'successful'
+            });
+        }else{
+            res.status(200)
+            .json({
+                statusCode: 200,
+                statusMsg: 'OK',
+                data: 'fail'
+            });
+        }
 
     });
 
