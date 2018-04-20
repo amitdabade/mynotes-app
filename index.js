@@ -15,7 +15,7 @@ app.get("/", function(req, res){
     connection.query('SELECT * FROM users WHERE user_email="amit@amit.com"', function (err, rows, fields) {
         if (err) throw err
       
-        res.send("welcome!! "+ rows[0].user_email);
+        res.send("welcome!! "+ rows[0].user_password);
       });
       
     connection.end();
