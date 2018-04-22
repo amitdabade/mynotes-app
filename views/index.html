@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>My Notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+        body{
+            margin: 0px;
+            height:calc(100vh - 55px);
+        }
+    </style>
+</head>
+<body ng-app="myNotes" ng-controller="mainCtrl" class="ng-cloak">
+<nav class="navbar navbar-default" ng-if="isAuth">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand logo" href="#!/">My Notes</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="#!/">Home</a></li>
+        <li><a data-toggle="modal" data-target="#newnote">New</a></li>
+        <li><a href="#!/trash">Trash</a></li>
+        <li><a href="#">Tags</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a><span class="glyphicon glyphicon-user"></span> Welcome, {{username}}</a></li>
+        <li><a href="#!/logout" ng-click="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div ng-view></div>
+<!-- Modal to new note-->
+<div class="modal fade" id="newnote" role="dialog">
+<div class="modal-dialog modal-md">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Create new note</h4>
+    </div>
+    <div class="modal-body">
+         <form method="post" ng-submit="newnote(newdata)">
+            <input type="hidden" id="noteid" name="uid" ng-bind="userid" ng-model="newdata.uid">
+            <div class="form-group">
+              <label for="email">Title:</label>
+              <input type="text" class="form-control" id="notetitle" placeholder="Enter title" name="title"  ng-model="newdata.title" ng-bind="ndata.title" required>
+            </div>
+            <div class="form-group">
+              <label for="pwd">Description:</label>
+              <textarea rows="5" class="form-control" style="resize: vertical;" id="notedescription" placeholder="Enter description" name="description" ng-model="newdata.description" required></textarea>
+            </div>
+             <div style="text-align: right">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                 <input type="submit" class="btn btn-primary" value="Save">
+             </div>
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-cookies.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/main.controller.js"></script>
+</html>

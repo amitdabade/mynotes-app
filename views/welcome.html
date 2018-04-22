@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4" ng-repeat="note in allnotes | orderBy : '-id'">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><b>{{note.title}}</b></div>
+                  <div class="panel-body note-body">{{note.body}}
+                      <br><br><em class="note-time">- {{note.createon | date : 'dd/MM/y HH:mm:ss' : '+0530' }}</em>
+                  </div>
+                  <div class="panel-footer note-footer">
+                      <span ng-if="note.ower==userid">
+                          <span class="glyphicon glyphicon-pencil" title="Edit" id="editnotebutton" data-toggle="modal" data-note-data="{{note}}"></span>&nbsp;&nbsp;
+                          <span class="glyphicon glyphicon-trash" title="Delete" id="deletenotebutton" data-toggle="modal" data-note-id="{{note.id}}"></span>&nbsp;&nbsp;
+                          <span class="glyphicon glyphicon-share" title="Share" id="sharenotebutton" data-toggle="modal" data-note-data="{{note}}"></span>&nbsp;&nbsp;
+                      </span>
+                      <div ng-if="note.ower!=userid" style="text-align: left"><em>[shared note]</em></div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="no-record" ng-if="allnotes.length==0">
+             <img src="images/no-result-found.png">
+             <h3>Add some notes</h3>
+        </div>
+  </div>
+</div>
+
+<!-- Modal to delete note-->
+<div class="modal fade" id="detetenote" role="dialog">
+<div class="modal-dialog modal-sm">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Are you sure?</h4>
+    </div>
+    <div class="modal-body">
+        <p>Dont worry it will be available in trash after deleting.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" ng-click="detetenote()">Delete</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal to edit note-->
+<div class="modal fade" id="editnote" role="dialog">
+<div class="modal-dialog modal-md">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Update note</h4>
+    </div>
+    <div class="modal-body">
+         <form method="post" ng-submit="updatenote(ndata)">
+            <input type="hidden" id="noteid" name="id" ng-model="ndata.id">
+            <div class="form-group">
+              <label for="email">Title:</label>
+              <input type="text" class="form-control" id="notetitle" placeholder="Enter title" name="title"  ng-model="ndata.title" ng-bind="ndata.title" required>
+            </div>
+            <div class="form-group">
+              <label for="pwd">Description:</label>
+              <textarea rows="5" class="form-control" style="resize: vertical;" id="notedescription" placeholder="Enter description" name="description" ng-model="ndata.description" required></textarea>
+            </div>
+             <div style="text-align: right">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                 <input type="submit" class="btn btn-primary" value="Update">
+             </div>
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- Modal to share note-->
+<div class="modal fade" id="sharenote" role="dialog">
+<div class="modal-dialog modal-md">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Share note</h4>
+    </div>
+    <div class="modal-body">
+         <form method="post" ng-submit="sharenote(sdata)">
+            <input type="hidden" id="owerid" name="owerid" ng-model="sdata.owerid">
+            <input type="hidden" id="noteid1" name="noteid" ng-model="sdata.noteid">
+            <div class="form-group">
+              <label for="email">Share with:</label>
+              <select class="form-control" name="shareid" ng-model="sdata.shareid" ng-options="user.user_id as user.user_name for user in allusers">
+                <option style="display:none" value="">select a user</option>
+              </select>
+            </div>
+             <div style="text-align: right">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                 <input type="submit" class="btn btn-primary" value="Share">
+             </div>
+        </form>
+    </div>
+  </div>
+</div>
+</div>
