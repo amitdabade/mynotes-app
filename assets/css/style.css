@@ -1,0 +1,40 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+body{
+    font-family: 'Roboto', sans-serif !important;
+}
+.logo{
+    color:#62C4A8 !important;
+    font-weight: 600;
+}
+.note-body{
+    min-height: 150px;
+    position: relative;"
+}
+.note-time{
+    font-size: 12px;
+    position: absolute;
+    bottom: 5px;
+}
+.note-footer{
+    text-align: right;
+}
+.note-footer .glyphicon{
+    cursor: pointer;
+}
+.no-record{
+    text-align: center;
+    margin-top: 50px;
+}
+.no-record img{
+    width:300px;
+    height: auto;
+}
+.no-record h3{
+    color: #648CC8;
+    margin-top: 40px;
+}
+
+
+    
