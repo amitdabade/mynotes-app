@@ -239,6 +239,7 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
           }).catch(function(response){
             console.log(response);
         });
+        location.reload();
     });
     
     
