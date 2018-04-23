@@ -4,14 +4,14 @@ var api = express.Router();
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-//   host     : 'sql12.freemysqlhosting.net',
-//   user     : 'sql12233718',
-//   password : 'z3nKLC9K28',
-//   database : 'sql12233718'
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
+  host     : 'sql12.freemysqlhosting.net',
+  user     : 'sql12233718',
+  password : 'z3nKLC9K28',
   database : 'sql12233718'
+//   host     : 'localhost',
+//   user     : 'root',
+//   password : '',
+//   database : 'sql12233718'
 });
 
 connection.connect();
