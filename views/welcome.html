@@ -8,13 +8,12 @@
                       <br><br><em class="note-time">- {{note.createon | date : 'dd/MM/y HH:mm:ss' : '+0530' }}</em>
                   </div>
                   <div class="panel-footer note-footer">
+                      <span ng-if="note.ower!=userid" style="float: left">[shared note]</span>                    
+                      <span class="glyphicon glyphicon-pencil" title="Edit" id="editnotebutton" data-toggle="modal" data-note-data="{{note}}"></span>&nbsp;&nbsp;                    
                       <span ng-if="note.ower==userid">
-                          <span class="glyphicon glyphicon-pencil" title="Edit" id="editnotebutton" data-toggle="modal" data-note-data="{{note}}"></span>&nbsp;&nbsp;
                           <span class="glyphicon glyphicon-trash" title="Delete" id="deletenotebutton" data-toggle="modal" data-note-id="{{note.id}}"></span>&nbsp;&nbsp;
-                          <span class="glyphicon glyphicon-share" title="Share" id="sharenotebutton" data-toggle="modal" data-note-data="{{note}}"></span>&nbsp;&nbsp;
                       </span>
-                      <div ng-if="note.ower!=userid" style="text-align: left"><em>[shared note]</em></div>
-                      
+                      <span class="glyphicon glyphicon-share" title="Share" id="sharenotebutton" data-toggle="modal" data-note-data="{{note}}"></span>&nbsp;&nbsp;                                            
                     </div>
                 </div>
             </div>
@@ -84,9 +83,10 @@
          <form method="post" ng-submit="sharenote(sdata)">
             <input type="hidden" id="owerid" name="owerid" ng-model="sdata.owerid">
             <input type="hidden" id="noteid1" name="noteid" ng-model="sdata.noteid">
+            <input type="hidden" id="sharebyid" name="sharebyid" ng-model="sdata.sharebyid">
             <div class="form-group">
               <label for="email">Share with:</label>
-              <select class="form-control" name="shareid" ng-model="sdata.shareid" ng-options="user.user_id as user.user_name for user in allusers">
+              <select class="form-control" name="sharewithid" ng-model="sdata.sharewithid" ng-options="user.user_id as user.user_name for user in allusers">
                 <option style="display:none" value="">select a user</option>
               </select>
             </div>

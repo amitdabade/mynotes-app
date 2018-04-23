@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <table class="table table-hover">
+        <thead>
+            <tr>
+            <th width="20%">Note Title</th>
+            <th width="60%">Shared with</th>
+            <th width="20%">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="note in sharednotes">
+                <td>{{note.title}}</td>
+                <td>{{note.user_name}}</td>
+                <td><span class="btn btn-danger" id="revokeaccess" data-sharednote="{{note}}">Revoke</span></td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
