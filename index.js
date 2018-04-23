@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(express.static('assets'));
 app.use(express.static('views'));
 app.use(cookieParser());
-app.use(session({secret: "Shh, its a secret!"}));
+app.use(session({secret: "Shh, its a secret!",resave: true,saveUninitialized: true}));
 
 app.use('/api/v1',api);
 app.listen(port);

@@ -4,9 +4,13 @@ var api = express.Router();
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'sql12.freemysqlhosting.net',
-  user     : 'sql12233718',
-  password : 'z3nKLC9K28',
+//   host     : 'sql12.freemysqlhosting.net',
+//   user     : 'sql12233718',
+//   password : 'z3nKLC9K28',
+//   database : 'sql12233718'
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
   database : 'sql12233718'
 });
 
@@ -60,7 +64,7 @@ api.post('/login',function(req,res,next){
 });
 
 api.get('/getnotes/:ower',function(req,res,next){
-    var sql = 'SELECT * FROM notes WHERE intrash = 0 and (ower="'+req.params.ower+'" or id in (SELECT note_id from sharewith WHERE share_id="'+req.params.ower+'"))';
+    var sql = 'SELECT * FROM notes WHERE intrash = 0 and (ower="'+req.params.ower+'" or id in (SELECT note_id from sharewith WHERE (sharewith_id="'+req.params.ower+'" and shareby_id in (SELECT shareby_id FROM sharewith where note_id in (SELECT note_id from sharewith WHERE sharewith_id="'+req.params.ower+'") and sharewith_id="'+req.params.ower+'"))))';
     console.log(sql);
     connection.query(sql, function (err, rows, fields) {
         if (err) throw err
@@ -179,7 +183,7 @@ api.post('/newnote',function(req,res,next){
 
 api.post('/sharenote',function(req,res,next){
     console.log(req.body);
-    var sql = 'INSERT INTO sharewith (id, note_id, ower_id, share_id) VALUES (NULL, "'+req.body.noteid+'", "'+req.body.owerid+'", "'+req.body.shareid+'")';  
+    var sql = 'INSERT INTO sharewith (id, note_id, ower_id, shareby_id, sharewith_id) VALUES (NULL, "'+req.body.noteid+'", "'+req.body.owerid+'", "'+req.body.sharebyid+'", "'+req.body.sharewithid+'")';  
     
     console.log(sql);
     connection.query(sql, function (err, rows, fields) {
@@ -189,6 +193,54 @@ api.post('/sharenote',function(req,res,next){
             statusCode: 200,
             statusMsg: 'OK',
             data: rows
+        });
+           
+    });
+
+});
+
+api.get('/getsharednotes/:uid',function(req,res,next){
+    var sql='SELECT sharewith.id , sharewith.note_id , notes.title, sharewith.sharewith_id, users.user_name FROM sharewith INNER JOIN notes on (sharewith.shareby_id='+req.params.uid+' and notes.id=sharewith.note_id) INNER JOIN users on sharewith.sharewith_id=users.user_id WHERE notes.intrash=0';
+    console.log(sql);
+    connection.query(sql, function (err, rows1, fields) {
+        if (err) throw err
+        
+        res.status(200)
+        .json({
+            statusCode: 200,
+            statusMsg: 'OK',
+            data: rows1
+        });
+           
+    });
+
+});
+
+api.get('/revokenoteaccess/:snid/:nid/:sbid',function(req,res,next){
+    var sql='DELETE FROM sharewith WHERE sharewith.id='+req.params.snid;
+    console.log(sql);
+    connection.query(sql, function (err, rows, fields) {
+        if (err) throw err
+        
+        res.status(200)
+        .json({
+            statusCode: 200,
+            statusMsg: 'OK',
+            data: rows
+        });
+           
+    });
+
+    var sql1='DELETE FROM sharewith WHERE shareby_id = '+req.params.sbid+' and note_id = '+req.params.nid+'';
+    console.log(sql1);
+    connection.query(sql1, function (err1, rows1, fields1) {
+        if (err1) throw err1
+        
+        res.status(200)
+        .json({
+            statusCode: 200,
+            statusMsg: 'OK',
+            data: rows1
         });
            
     });
