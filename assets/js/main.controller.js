@@ -10,6 +10,9 @@ app.config(function($routeProvider) {
     .when("/trash", {
         templateUrl : "trash.html"
     })
+    .when("/shared-notes", {
+        templateUrl : "share.html"
+    })
     .when("/welcome", {
         templateUrl : "welcome.html",
     });
@@ -32,6 +35,7 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
         getnotes($scope.userid);
         gettrashnotes($scope.userid);
         getallusers($scope.userid);
+        getsharednotes($scope.userid);
     }
     
     $scope.login = function(data){
@@ -186,6 +190,8 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
         $scope.sdata.noteid=$scope.notedata1.id;
         document.getElementById('owerid').value=$scope.notedata1.ower;
         $scope.sdata.owerid=$scope.notedata1.ower;
+        document.getElementById('sharebyid').value=$scope.userid;
+        $scope.sdata.sharebyid=$scope.userid;
 
         
         $("#sharenote").modal('show');
@@ -205,9 +211,35 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
         location.reload();
     }
     
+    function getsharednotes(uid){
+
+        var api = "api/v1/getsharednotes/"+uid;
+        $http.get(api)
+          .then(function(response) {
+            $scope.data = response.data;
+            $scope.sharednotes = $scope.data.data;
+            console.log($scope.sharednotes);
+ 
+          }).catch(function(response){
+            console.log(response);
+        }); 
+    }
+
+
     
-    
-    
+    $(document).on("click", "#revokeaccess", function () {
+        $scope.sharednote = $(this).data('sharednote');
+        var api = "api/v1/revokenoteaccess/"+$scope.sharednote.id+"/"+$scope.sharednote.note_id+"/"+$scope.sharednote.sharewith_id;
+        $http.get(api)
+          .then(function(response) {
+            $scope.data = response.data;
+            $scope.sharednotes = $scope.data.data;
+            console.log($scope.sharednotes);
+ 
+          }).catch(function(response){
+            console.log(response);
+        });
+    });
     
     
     
