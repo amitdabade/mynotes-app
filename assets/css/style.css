@@ -25,9 +25,7 @@ body{
 }
 .note-tag{
     font-size: 12px;
-    position: absolute;
-    bottom: 33px;
-    left: 30px;
+    float:left;
 }
 .note-footer{
     text-align: right;
