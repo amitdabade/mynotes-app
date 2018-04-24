@@ -13,6 +13,9 @@ app.config(function($routeProvider) {
     .when("/shared-notes", {
         templateUrl : "share.html"
     })
+    .when("/tags", {
+        templateUrl : "tags.html"
+    })
     .when("/welcome", {
         templateUrl : "welcome.html",
     });
@@ -36,17 +39,18 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
         gettrashnotes($scope.userid);
         getallusers($scope.userid);
         getsharednotes($scope.userid);
+        getalltagswithnotes();
     }
     
     $scope.login = function(data){
-        console.log(data);
+        // console.log(data);
         $http.post("api/v1/login",data)
           .then(function(response) {
             $scope.data = response.data;
-            console.log($scope.data);
+            // console.log($scope.data);
             
             if($scope.data.data==true){
-                console.log($cookies.get('uid'));
+                // console.log($cookies.get('uid'));
                 $scope.userid=$cookies.get('uid');
                 $scope.username=$cookies.get('uname');
                 $scope.isAuth=true;
@@ -75,7 +79,7 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
           .then(function(response) {
             $scope.data = response.data;
             $scope.allusers=$scope.data.data;
-            console.log($scope.data);
+            // console.log($scope.data);
           }).catch(function(response){
             console.log(response);
         });  
@@ -87,7 +91,7 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
           .then(function(response) {
             $scope.data = response.data;
             $scope.allnotes=$scope.data.data;
-            console.log($scope.data);
+            // console.log($scope.data);
           }).catch(function(response){
             console.log(response);
         });  
@@ -98,7 +102,7 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
           .then(function(response) {
             $scope.data = response.data;
             $scope.alltrashnotes=$scope.data.data;
-            console.log($scope.data); 
+            // console.log($scope.data); 
           }).catch(function(response){
             console.log(response);
         });  
@@ -107,7 +111,7 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
     
     $(document).on("click", "#deletenotebutton", function () {         
         $scope.noteid = $(this).data('note-id');
-        console.log($scope.noteid);     
+        // console.log($scope.noteid);     
         $("#detetenote").modal('show');
     });
 
@@ -117,7 +121,7 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
         $http.get(api)
           .then(function(response) {
             $scope.data = response.data;
-            console.log($scope.data);
+            // console.log($scope.data);
  
           }).catch(function(response){
             console.log(response);
@@ -128,13 +132,13 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
     $(document).on("click", "#restorenotebutton", function () {
            
         $scope.noteid = $(this).data('note-id');
-        console.log($scope.noteid);  
+        // console.log($scope.noteid);  
         
         var api = "api/v1/restorenote/"+$scope.noteid;
         $http.get(api)
           .then(function(response) {
             $scope.data = response.data;
-            console.log($scope.data);
+            // console.log($scope.data);
  
           }).catch(function(response){
             console.log(response);
@@ -156,12 +160,12 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
     });
     
     $scope.updatenote = function(ndata){
-        console.log(ndata);
+        // console.log(ndata);
         var api = "api/v1/updatenote";
         $http.post(api,ndata)
           .then(function(response) {
             $scope.data = response.data;
-            console.log($scope.data);
+            // console.log($scope.data);
  
           }).catch(function(response){
             console.log(response);
@@ -170,12 +174,12 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
     }
     
     $scope.newnote = function(ndata){
-        console.log(ndata);
+        // console.log(ndata);
         var api = "api/v1/newnote";
         $http.post(api,ndata)
           .then(function(response) {
             $scope.data = response.data;
-            console.log($scope.data);
+            // console.log($scope.data);
  
           }).catch(function(response){
             console.log(response);
@@ -183,6 +187,19 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
         location.reload();
     }
     
+    $scope.addnewtag = function(tdata){
+        // console.log(tdata);
+        var api = "api/v1/addnewtag";
+        $http.post(api,tdata)
+          .then(function(response) {
+            $scope.data = response.data;
+            // console.log($scope.data);
+ 
+          }).catch(function(response){
+            console.log(response);
+        }); 
+        location.reload();
+    }
     
     $(document).on("click", "#sharenotebutton", function () {         
         $scope.notedata1 = $(this).data('note-data');
@@ -198,12 +215,12 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
     });
     
     $scope.sharenote = function(sdata){
-        console.log(sdata);
+        // console.log(sdata);
         var api = "api/v1/sharenote";
         $http.post(api,sdata)
           .then(function(response) {
             $scope.data = response.data;
-            console.log($scope.data);
+            // console.log($scope.data);
  
           }).catch(function(response){
             console.log(response);
@@ -218,7 +235,21 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
           .then(function(response) {
             $scope.data = response.data;
             $scope.sharednotes = $scope.data.data;
-            console.log($scope.sharednotes);
+            // console.log($scope.sharednotes);
+ 
+          }).catch(function(response){
+            console.log(response);
+        }); 
+    }
+
+    function getalltagswithnotes(){
+
+        var api = "api/v1/getalltagswithnotes";
+        $http.get(api)
+          .then(function(response) {
+            $scope.data = response.data;
+            $scope.alltagswithnotes = $scope.data.data;
+            // console.log($scope.alltagswithnotes);
  
           }).catch(function(response){
             console.log(response);
@@ -234,7 +265,7 @@ app.controller('mainCtrl', function($scope,$http,$cookies,$cookieStore) {
           .then(function(response) {
             $scope.data = response.data;
             $scope.sharednotes = $scope.data.data;
-            console.log($scope.sharednotes);
+            // console.log($scope.sharednotes);
  
           }).catch(function(response){
             console.log(response);
