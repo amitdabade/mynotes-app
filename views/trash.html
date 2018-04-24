@@ -5,7 +5,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><b>{{note.title}}</b></div>
                   <div class="panel-body note-body">{{note.body}}
-                      <br><br><em class="note-time">- {{note.createon | date : 'dd/MM/y HH:mm:ss' : '+0530' }}</em>
+                        <br><br><em class="note-time"><span class="glyphicon glyphicon-time"></span> {{note.createon | date : 'dd/MM/y HH:mm:ss' : '+0530' }}</em>                      
                   </div>
                   <div class="panel-footer note-footer">
                       <span class="glyphicon glyphicon-repeat" title="Restore" id="restorenotebutton" data-note-id="{{note.id}}"></span>

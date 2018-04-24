@@ -1,20 +1,25 @@
 <div class="container">
-    <div class="row">
-        <table class="table table-hover">
-        <thead>
-            <tr>
-            <th width="20%">Note Title</th>
-            <th width="60%">Shared with</th>
-            <th width="20%">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="note in sharednotes">
-                <td>{{note.title}}</td>
-                <td>{{note.user_name}}</td>
-                <td><span class="btn btn-danger" id="revokeaccess" data-sharednote="{{note}}">Revoke</span></td>
-            </tr>
-        </tbody>
-        </table>
+    <div class="row" ng-if="sharednotes.length!=0">
+        <div class="col-sm-8">
+            <table class="table table-hover">
+            <thead>
+                <tr>
+                <th width="30%">Note Title</th>
+                <th width="50%">Shared with</th>
+                <th width="20%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="note in sharednotes">
+                    <td>{{note.title}}</td>
+                    <td>{{note.user_name}}</td>
+                    <td><span class="btn btn-danger" id="revokeaccess" data-sharednote="{{note}}">Revoke</span></td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
     </div>
+    <div class="no-record" ng-if="sharednotes.length==0">
+        <img src="images/no-result-found.png">
+   </div>
 </div>

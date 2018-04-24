@@ -3,12 +3,15 @@
         <div class="col-sm-4" ng-repeat="note in allnotes | orderBy : '-id'">
             <div class="panel-group">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><b>{{note.title}}</b></div>
-                  <div class="panel-body note-body">{{note.body}}
-                      <br><br><em class="note-time">- {{note.createon | date : 'dd/MM/y HH:mm:ss' : '+0530' }}</em>
+                    <div class="panel-heading">
+                      <b>{{note.title}}</b>
+                      <span ng-if="note.ower!=userid" style="float: right">[shared note]</span>                      
+                    </div>
+                    <div class="panel-body note-body"><span>{{note.body}}</span>
+                      <br><br><em class="note-time"><span class="glyphicon glyphicon-time"></span> {{note.createon | date : 'dd/MM/y HH:mm:ss' : '+0530' }}</em>
                   </div>
                   <div class="panel-footer note-footer">
-                      <span ng-if="note.ower!=userid" style="float: left">[shared note]</span>                    
+                      <span class="note-tag" ng-if="note.tid!=0"><em><span class="glyphicon glyphicon-tag"></span> {{note.name}}</em></span>                   
                       <span class="glyphicon glyphicon-pencil" title="Edit" id="editnotebutton" data-toggle="modal" data-note-data="{{note}}"></span>&nbsp;&nbsp;                    
                       <span ng-if="note.ower==userid">
                           <span class="glyphicon glyphicon-trash" title="Delete" id="deletenotebutton" data-toggle="modal" data-note-id="{{note.id}}"></span>&nbsp;&nbsp;
@@ -33,7 +36,7 @@
       <h4 class="modal-title">Are you sure?</h4>
     </div>
     <div class="modal-body">
-        <p>Dont worry it will be available in trash after deleting.</p>
+        <p>Dont worry it will be available in trash after deleting. You can restore it.</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

@@ -1,0 +1,47 @@
+<div class="container">
+<div class="row">
+    <div class="col-sm-8">
+        <table class="table table-hover">
+        <thead>
+            <tr>
+            <th width="60%">Tag</th>
+            <th width="40%">Number of notes</th>   
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="tag in alltagswithnotes">
+                <td>{{tag.name}}</td>
+                <td>{{tag.noofnotes}}</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-2">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addtagmodal">Add TAG</button>
+    </div>
+</div>
+</div>
+
+<!-- Modal to add tags-->
+<div class="modal fade" id="addtagmodal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Add Tag</h4>
+        </div>
+        <div class="modal-body">
+                <form method="post" ng-submit="addnewtag(tdata)">
+                    <div class="form-group">
+                        <label for="tagname">Name:</label>
+                        <input type="text" class="form-control" id="tagname" placeholder="Enter tag name" name="tagname"  ng-model="tdata.tagname" required>
+                    </div>
+                    <div style="text-align: right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-primary" value="Add">
+                    </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    </div>
