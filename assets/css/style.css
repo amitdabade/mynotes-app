@@ -8,14 +8,26 @@ body{
     color:#62C4A8 !important;
     font-weight: 600;
 }
+.login-form{
+    border: 2px solid #2F5A78;
+    padding: 30px;
+    margin-top: 50px;
+    border-radius: 10px
+}
 .note-body{
     min-height: 150px;
-    position: relative;"
+    position: relative;
 }
 .note-time{
     font-size: 12px;
     position: absolute;
     bottom: 5px;
+}
+.note-tag{
+    font-size: 12px;
+    position: absolute;
+    bottom: 33px;
+    left: 30px;
 }
 .note-footer{
     text-align: right;
@@ -25,7 +37,7 @@ body{
 }
 .no-record{
     text-align: center;
-    margin-top: 50px;
+    margin-top: 80px;
 }
 .no-record img{
     width:300px;
